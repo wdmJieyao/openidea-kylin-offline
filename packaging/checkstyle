@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/lib/jvm/openidea-temurin-25/bin/java -jar /opt/checkstyle/checkstyle-all.jar "$@"

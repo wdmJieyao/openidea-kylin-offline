@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+getconf GNU_LIBC_VERSION
+/usr/bin/openidea --cli --version
+java -version
+javac -version
+mvn -o -v
+tools="$OPENIDEA_LOCAL_DATA_DIR/ai.l0ng.openidea/tools"
+"$tools/java-analyzer/bin/java-analyzer" --version
+"$tools/kmp-lsp/bin/kmp-lsp" --version
+test -x "$tools/kmp-lsp/bin/kmp-jar-indexer"
+for artifact in "$tools/jdtls"/plugins/org.eclipse.equinox.launcher_*.jar; do
+  if [[ -s $artifact ]]; then
+    printf 'JDT LS %s (%s)\n' '1.63.0' "${artifact##*/}"
+    break
+  fi
+done
+test -s "$artifact"
+test -s "$tools/java-debug/bin/com.microsoft.java.debug.plugin.jar"
+printf 'OpenIDEA 可执行文件、JDK、Maven 和预置语言工具检查通过。\n'
